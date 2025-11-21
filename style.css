@@ -554,6 +554,163 @@ body {
   }
 }
 
+
+/* PRODUCT DETAILS PAGE */
+.product-details-page {
+  padding: 140px 0 100px;
+  background: #fff;
+}
+
+.product-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.product-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.main-image img {
+  width: 100%;
+  height: 680px;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+.thumbnail-slider {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.thumbnail-slider img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid #eee;
+  transition: all 0.3s;
+  opacity: 0.7;
+}
+
+.thumbnail-slider img.active,
+.thumbnail-slider img:hover {
+  opacity: 1;
+  border-color: #000;
+}
+
+/* Right side */
+.product-info h1 {
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.product-code {
+  color: #777;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.product-price {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.options > div {
+  margin-bottom: 30px;
+}
+
+.options p {
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.sizes {
+  display: flex;
+  gap: 12px;
+}
+
+.size-btn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ddd;
+  background: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.size-btn:hover,
+.size-btn.active {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+.colors {
+  display: flex;
+  gap: 15px;
+}
+
+.color-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #eee;
+  cursor: pointer;
+}
+
+.color-btn.active {
+  border-color: #000;
+  transform: scale(1.1);
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 18px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 40px 0;
+  transition: 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background: #333;
+}
+
+.description p {
+  line-height: 1.8;
+  color: #555;
+  font-size: 16px;
+}
+
+/* MOBILE */
+@media (max-width: 968px) {
+  .product-wrapper {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .main-image img { height: 500px; }
+  .product-info h1 { font-size: 36px; }
+}
+
+@media (max-width: 480px) {
+  .main-image img { height: 400px; }
+  .thumbnail-slider img { width: 80px; height: 80px; }
+}
+
 /* Force footer to bottom of page */
 html, body {
   height: 100%;

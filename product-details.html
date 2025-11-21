@@ -29,7 +29,7 @@
             <!-- Left Links (desktop only) -->
             <nav class="nav-left">
                 <a href="index.html">Home</a>
-                <a href="#">Products</a>
+                <a href="products.html">Products</a>
                 <a href="#">About</a>
             </nav>
 
@@ -49,7 +49,7 @@
         <!-- Mobile Full-Screen Menu stays exactly the same -->
         <div class="mobile-menu">
             <a href="index.html">Home</a>
-            <a href="#">Products</a>
+            <a href="products.html">Products</a>
             <a href="#">About</a>
             <div class="mobile-social">
                 <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -59,27 +59,55 @@
         </div>
     </header>
 
+    <!-- PRODUCT DETAILS PAGE -->
+    <main class="product-details-page">
+        <div class="container product-wrapper">
 
-
-    <!-- PRODUCTS PAGE CONTENT -->
-    <main class="products-page">
-
-        <div class="container">
-            <!-- <h1 class="page-title">All Products</h1> -->
-
-            <!-- CATEGORY FILTER MENU -->
-            <div class="category-filter">
-                <button class="filter-btn active" data-category="all">All</button>
-                <button class="filter-btn" data-category="women">Women</button>
-                <button class="filter-btn" data-category="men">Men</button>
-                <button class="filter-btn" data-category="accessories">Accessories</button>
-                <button class="filter-btn" data-category="new">New In</button>
+            <!-- LEFT: Images -->
+            <div class="product-images">
+                <div class="main-image">
+                    <img id="bigImage" src="" alt="Product">
+                </div>
+                <div class="thumbnail-slider">
+                    <!-- Thumbnails injected by JS -->
+                </div>
             </div>
 
-            <!-- PRODUCTS GRID -->
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be injected here by JavaScript -->
+            <!-- RIGHT: Details -->
+            <div class="product-info">
+                <h1 id="productName">White Oversized Shirt</h1>
+                <p class="product-code">Code: <span id="productCode">SW001</span></p>
+                <p class="product-price" id="productPrice">$89</p>
+
+                <div class="options">
+                    <div class="size-selector">
+                        <p>Size:</p>
+                        <div class="sizes">
+                            <button class="size-btn" data-size="XS">XS</button>
+                            <button class="size-btn active" data-size="S">S</button>
+                            <button class="size-btn" data-size="M">M</button>
+                            <button class="size-btn" data-size="L">L</button>
+                            <button class="size-btn" data-size="XL">XL</button>
+                        </div>
+                    </div>
+
+                    <div class="color-selector">
+                        <p>Color:</p>
+                        <div class="colors">
+                            <button class="color-btn active"
+                                style="background:#ffffff; border:2px solid #000;"></button>
+                            <button class="color-btn" style="background:#000000;"></button>
+                            <button class="color-btn" style="background:#f5f5f5;"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <p>Crafted from premium cotton with an oversized fit. Perfect for layering or standalone statement
+                        look.</p>
+                </div>
             </div>
+
         </div>
     </main>
 
