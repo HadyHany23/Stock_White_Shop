@@ -532,7 +532,7 @@ body {
   flex-direction: column;
 }
 
-.products-page > .container {
+.products-page>.container {
   flex: 1;
 }
 
@@ -624,7 +624,7 @@ body {
   margin-bottom: 40px;
 }
 
-.options > div {
+.options>div {
   margin-bottom: 30px;
 }
 
@@ -633,61 +633,54 @@ body {
   font-weight: 500;
 }
 
+/* Sizes – Dynamic from Google Sheets */
 .sizes {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .size-btn {
   width: 50px;
   height: 50px;
   border: 1px solid #ddd;
-  background: none;
+  background: #fff;
+  color: #000;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
-}
-
-.size-btn:hover,
-.size-btn.active {
-  border-color: #000;
-  background: #000;
-  color: #fff;
-}
-
-.colors {
+  position: relative;
   display: flex;
-  gap: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
-.color-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid #eee;
-  cursor: pointer;
-}
-
-.color-btn.active {
+/* مقاس متوفر */
+.size-btn.available:hover,
+.size-btn.available.active {
   border-color: #000;
-  transform: scale(1.1);
-}
-
-.add-to-cart-btn {
-  width: 100%;
-  padding: 18px;
   background: #000;
   color: #fff;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  margin: 40px 0;
-  transition: 0.3s;
 }
 
-.add-to-cart-btn:hover {
-  background: #333;
+/* مقاس خلصان (quantity = 0) */
+.size-btn.sold-out {
+  background: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #ddd;
+}
+
+/* الخط الأسود اللي بيقطع المقاس اللي خلص */
+.size-btn.sold-out::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  right: 5px;
+  height: 2px;
+  background: #999;
+  transform: translateY(-50%) rotate(-12deg);
 }
 
 .description p {
@@ -702,17 +695,148 @@ body {
     grid-template-columns: 1fr;
     gap: 50px;
   }
-  .main-image img { height: 500px; }
-  .product-info h1 { font-size: 36px; }
+
+  .main-image img {
+    height: 500px;
+  }
+
+  .product-info h1 {
+    font-size: 36px;
+  }
 }
 
 @media (max-width: 480px) {
-  .main-image img { height: 400px; }
-  .thumbnail-slider img { width: 80px; height: 80px; }
+  .main-image img {
+    height: 400px;
+  }
+
+  .thumbnail-slider img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Loading spinner */
+.loading-spinner {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 100px 20px;
+  font-size: 20px;
+  color: #999;
+}
+
+.loading-spinner::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =============== PLACEHOLDER LOADING EFFECT =============== */
+.placeholder-glow {
+  background: #f6f7f8;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-line {
+  display: block;
+  height: 16px;
+  background: #e0e0e0;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.placeholder-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: shimmer 1.8s infinite;
+}
+
+.full {
+  width: 100%;
+  height: 680px;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 680px;
+  background: #f0f0f0;
+  position: relative;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+
+/* Category Filter Placeholder */
+.filter-placeholder {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+
+.filter-placeholder .placeholder-glow {
+  height: 44px;
+  border-radius: 8px;
+}
+
+/* لما البيانات تتحمل → نخفي الـ placeholder */
+.category-filter.loaded .filter-placeholder {
+  display: none;
+}
+
+/* Categories Placeholder */
+.category-placeholder {
+  aspect-ratio: 3 / 4;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.full-card {
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+}
+
+/* نخفي الـ placeholder بعد التحميل */
+#categoriesGrid.loaded .category-placeholder {
+  display: none;
 }
 
 /* Force footer to bottom of page */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }

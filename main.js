@@ -1,64 +1,82 @@
-// Mobile menu toggle
-document.querySelector('.burger').addEventListener('click', () => {
+// ================================================
+// STOCK WHITE – MAIN JAVASCRIPT (Google Sheets DB)
+// ================================================
+
+// Mobile menu toggle (burger icon)
+document.querySelector('.burger')?.addEventListener('click', () => {
   document.querySelector('.mobile-menu').classList.toggle('active');
 });
 
-// Close menu when clicking a link (optional)
+// Close mobile menu when clicking a link
 document.querySelectorAll('.mobile-menu a').forEach(link => {
   link.addEventListener('click', () => {
     document.querySelector('.mobile-menu').classList.remove('active');
   });
 });
 
-// Fake products data
-const products = [
-  { name: "White Oversized Shirt", price: "$89", category: "women", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800" },
-  { name: "Minimal Black Blazer", price: "$189", category: "women", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800" },
-  { name: "Linen Summer Dress", price: "$129", category: "men", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=800" },
-  { name: "Tailored Wool Coat", price: "$279", category: "men", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800" },
-  { name: "Classic White Sneakers", price: "$119", category: "men", img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800" },
-  { name: "New Silk Scarf", price: "$95", category: "new", img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800" },
-];
+// Global variable to store all data from Google Sheets
+let allData = { categories: [], products: [] };
 
-// Render all products
-// function renderProducts(filter = "all") {
-//   const grid = document.getElementById("productsGrid");
-//   if (!grid) return;
+// Your Google Apps Script Web App URL (replace only if you make new deployment)
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyc5tUFGO4Q_YA010nHPZTVZLHtH2nK2iPY-W_qVYNlWDiT4Ulk_0z3gw9I0teVb_qh/exec";
 
-//   const filtered = filter === "all" ? products : products.filter(p => p.category === filter);
+// ================================================
+// 1. LOAD DATA FROM GOOGLE SHEETS
+// ================================================
+async function loadData() {
+  // Show loading spinner on products page
+  const productsGrid = document.getElementById("productsGrid");
+  if (productsGrid) {
+    productsGrid.innerHTML = `
+      <div class="loading-spinner">
+        <p>Loading products...</p>
+      </div>
+    `;
+  }
 
-//   if (filtered.length === 0) {
-//     grid.innerHTML = `
-//       <div class="no-products">
-//         <p>No products available in this category yet.</p>
-//       </div>
-//     `;
-//   } else {
-//     grid.innerHTML = filtered.map(product => `
-//       <div class="product-card">
-//         <img src="${product.img}" alt="${product.name}">
-//         <h3>${product.name}</h3>
-//         <p class="price">${product.price}</p>
-//       </div>
-//     `).join('');
-//   }
-// }
+  try {
+    // Fetch JSON from your Google Sheet via Apps Script
+    const response = await fetch(SHEET_URL + "?t=" + Date.now()); // cache buster
+    if (!response.ok) throw new Error("Network error");
+
+    // Parse the JSON response → becomes allData.categories & allData.products
+    allData = await response.json();
+
+    // Data loaded successfully → now render everything
+    if (document.getElementById("productsGrid")) {
+      renderProducts();           // Show products grid
+      setupFilterButtons();       // Make filter buttons work
+    }
+    if (document.querySelector('.product-details-page')) {
+      loadProductDetails();       // Load current product on details page
+    }
+
+  } catch (error) {
+    console.error("Failed to load data from Google Sheets:", error);
+    if (productsGrid) {
+      productsGrid.innerHTML = `<div class="no-products"><p>Failed to load products. Please try again later.</p></div>`;
+    }
+  }
+}
+
+// ================================================
+// 2. RENDER PRODUCTS GRID
+// ================================================
 function renderProducts(filter = "all") {
   const grid = document.getElementById("productsGrid");
   if (!grid) return;
 
-  const filtered = filter === "all" ? products : products.filter(p => p.category === filter);
+  // Filter products by category_code
+  let filtered = filter === "all"
+    ? allData.products
+    : allData.products.filter(p => p.category_code === filter);
 
   if (filtered.length === 0) {
-    grid.innerHTML = `
-      <div class="no-products">
-        <p>No products available in this category yet.</p>
-      </div>
-    `;
+    grid.innerHTML = `<div class="no-products"><p>No products available in this category yet.</p></div>`;
   } else {
-    grid.innerHTML = filtered.map((product, index) => `
-      <div class="product-card" data-id="${index}" onclick="openProductDetails(${index})">
-        <img src="${product.img}" alt="${product.name}">
+    grid.innerHTML = filtered.map(product => `
+      <div class="product-card" onclick="openProductDetails('${product.code}')">
+        <img src="${product.images[0] || 'images/hero.jpg'}" alt="${product.name}">
         <h3>${product.name}</h3>
         <p class="price">${product.price}</p>
       </div>
@@ -66,75 +84,204 @@ function renderProducts(filter = "all") {
   }
 }
 
-// Function to open product details with correct product
-function openProductDetails(productIndex) {
-  // Save the selected product index in localStorage
-  localStorage.setItem('selectedProductIndex', productIndex);
-  // Go to details page
+// ================================================
+// 3. OPEN PRODUCT DETAILS PAGE
+// ================================================
+function openProductDetails(productCode) {
+  localStorage.setItem('currentProductCode', productCode);
   window.location.href = 'product-details.html';
 }
 
-// Filter buttons
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelector('.filter-btn.active').classList.remove('active');
-    btn.classList.add('active');
-    renderProducts(btn.dataset.category);
-  });
-});
+// ================================================
+// 4. SETUP CATEGORY FILTER BUTTONS من الداتابيز + Placeholder
+// ================================================
+function setupFilterButtons() {
+  const filterContainer = document.getElementById('categoryFilter');
+  const placeholder = filterContainer.querySelector('.filter-placeholder');
 
-// Initial load
-document.addEventListener('DOMContentLoaded', () => {
-  renderProducts();
-});
+  // ننظف أي أزرار قديمة (لو موجودة)
+  filterContainer.innerHTML = '';
 
-
-// PRODUCT DETAILS PAGE SCRIPT
-if (document.querySelector('.product-details-page')) {
-  // Example product data (in real project you'd get this from URL or database)
-  const currentProduct = {
-    name: "White Oversized Shirt",
-    code: "SW001",
-    price: "$89",
-    images: [
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=1200",
-      "https://images.unsplash.com/photo-1618354691551-44de113f0164?w=1200",
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=1200",
-    ]
+  // زر "All" الأول دايمًا
+  const allBtn = document.createElement('button');
+  allBtn.className = 'filter-btn active';
+  allBtn.dataset.category = 'all';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    renderProducts('all');
   };
+  filterContainer.appendChild(allBtn);
 
-  // Fill content
-  document.getElementById('productName').textContent = currentProduct.name;
-  document.getElementById('productCode').textContent = currentProduct.code;
-  document.getElementById('productPrice').textContent = currentProduct.price;
-  document.getElementById('bigImage').src = currentProduct.images[0];
+  // نجيب الأقسام من الداتابيز ونضيف زر لكل قسم
+  allData.categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.category = cat.code;
+    btn.textContent = cat.name;
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts(cat.code);
+    };
+    filterContainer.appendChild(btn);
+  });
 
-  // Thumbnails
+  // نخفي الـ placeholder ونظهر الأزرار الحقيقية
+  filterContainer.classList.add('loaded');
+  placeholder?.remove();
+}
+
+// ================================================
+// 5. PRODUCT DETAILS PAGE – مع Placeholder أثناء التحميل
+// ================================================
+function loadProductDetails() {
+  const code = localStorage.getItem('currentProductCode');
+  const product = allData.products.find(p => p.code === code);
+
+  if (!product) {
+    document.body.innerHTML = "<h2 style='text-align:center;padding:100px;'>Product not found</h2>";
+    return;
+  }
+
+  // إخفاء الـ placeholder وإظهار المحتوى الحقيقي
+  document.querySelectorAll('.placeholder-glow').forEach(el => {
+    el.classList.remove('placeholder-glow');
+    el.querySelectorAll('.placeholder-line').forEach(line => line.remove());
+  });
+
+  // إظهار الصورة الكبيرة
+  document.querySelector('.image-placeholder').style.display = 'none';
+  const bigImage = document.getElementById('bigImage');
+  bigImage.style.display = 'block';
+  bigImage.src = product.images[0] || '';
+
+  // تعبئة البيانات
+  document.getElementById('productName').textContent = product.name;
+  document.getElementById('productCode').textContent = product.code;
+  document.getElementById('productPrice').textContent = product.price;
+
+  // معرض الصور الصغير
   const thumbContainer = document.querySelector('.thumbnail-slider');
-  currentProduct.images.forEach((img, i) => {
+  thumbContainer.innerHTML = '';
+  product.images.forEach((img, i) => {
     const imgEl = document.createElement('img');
     imgEl.src = img;
     if (i === 0) imgEl.classList.add('active');
     imgEl.onclick = () => {
-      document.getElementById('bigImage').src = img;
+      bigImage.src = img;
       document.querySelectorAll('.thumbnail-slider img').forEach(t => t.classList.remove('active'));
       imgEl.classList.add('active');
     };
     thumbContainer.appendChild(imgEl);
   });
 
-  // Size & color selection
-  document.querySelectorAll('.size-btn').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelector('.size-btn.active')?.classList.remove('active');
-      btn.classList.add('active');
-    };
+  // المقاسات (نفس الكود اللي فات)
+  const sizesContainer = document.getElementById('sizesContainer');
+  sizesContainer.innerHTML = '';
+
+  product.sizes.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'size-btn';
+    btn.textContent = s.size;
+    btn.dataset.size = s.size;
+
+    if (s.quantity > 0) {
+      btn.classList.add('available');
+      btn.onclick = () => {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      };
+    } else {
+      btn.classList.add('sold-out');
+      btn.disabled = true;
+    }
+    sizesContainer.appendChild(btn);
   });
 
-  document.querySelectorAll('.color-btn').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelector('.color-btn.active')?.classList.remove('active');
-      btn.classList.add('active');
-    };
-  });
+  const firstAvailable = document.querySelector('.size-btn.available');
+  if (firstAvailable) firstAvailable.classList.add('active');
 }
+
+
+// ================================================
+// 6. RENDER CATEGORIES GRID – أول حاجة تتحمل في الموقع
+// ================================================
+async function renderCategoriesFirst() {
+  const grid = document.getElementById('categoriesGrid');
+  if (!grid) return; // لو مش في index.html
+
+  // لو البيانات لسه ما اتحملتش → نعمل fetch سريع للأقسام بس
+  if (allData.categories.length === 0) {
+    try {
+      const response = await fetch(SHEET_URL + "?t=" + Date.now());
+      const data = await response.json();
+      allData.categories = data.categories || [];
+    } catch (e) {
+      console.error("Failed to load categories");
+    }
+  }
+
+  // ننظف الـ placeholder
+  grid.innerHTML = '';
+  grid.classList.add('loaded');
+
+  // نرسم كل قسم
+  allData.categories.forEach(cat => {
+    const card = document.createElement('a');
+    card.href = `products.html?category=${cat.code}`;
+    card.className = 'category-card';
+
+    card.innerHTML = `
+      <img src="${cat.cover_image || 'https://via.placeholder.com/600x800/eee/ccc?text=No+Image'}" 
+           alt="${cat.name}" loading="lazy">
+      <div class="overlay">
+        <h3>${cat.name}</h3>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  // لو مفيش أقسام
+  if (allData.categories.length === 0) {
+    grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:80px; color:#999; font-size:18px;">
+      No categories available yet.
+    </p>`;
+  }
+}
+
+// ================================================
+// 7. تحميل البيانات العادي (منتجات + أقسام) – بعد الأقسام
+// ================================================
+async function loadFullData() {
+  try {
+    const response = await fetch(SHEET_URL + "?t=" + Date.now());
+    const data = await response.json();
+    allData.categories = data.categories || [];
+    allData.products = data.products || [];
+
+    // بعد ما كل حاجة اتحملت → نعمل باقي الشغل
+    if (document.getElementById("productsGrid")) {
+      renderProducts();
+      setupFilterButtons();
+    }
+    if (document.querySelector('.product-details-page')) {
+      loadProductDetails();
+    }
+  } catch (e) {
+    console.error("Failed to load full data", e);
+  }
+}
+
+// ================================================
+// 8. START – الأقسام أولاً، ثم باقي الموقع
+// ================================================
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1. نرسم الأقسام فورًا (أولوية قصوى)
+  await renderCategoriesFirst();
+
+  // 2. بعد كده نحمل باقي البيانات عادي
+  await loadFullData();
+});
