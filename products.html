@@ -30,7 +30,7 @@
             <nav class="nav-left">
                 <a href="index.html">Home</a>
                 <a href="#">Products</a>
-                <a href="#">About</a>
+                <a href="about.html">About</a>
             </nav>
 
             <!-- Center Logo with Image + Text -->
@@ -55,7 +55,7 @@
         <div class="mobile-menu">
             <a href="index.html">Home</a>
             <a href="#">Products</a>
-            <a href="#">About</a>
+            <a href="about.html">About</a>
             <div class="mobile-social">
                 <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
@@ -71,12 +71,10 @@
     <!-- PRODUCTS PAGE CONTENT -->
     <main class="products-page">
 
-        <div class="container">
-            <!-- <h1 class="page-title">All Products</h1> -->
-
-            <!-- CATEGORY FILTER MENU – يتولد من الداتابيز -->
+        <!-- FULL-WIDTH FILTER BAR (outside container) -->
+        <div class="filter-bar-full">
             <div class="category-filter" id="categoryFilter">
-                <!-- Placeholder أثناء التحميل -->
+                <!-- Placeholder -->
                 <div class="filter-placeholder">
                     <span class="placeholder-glow"><span class="placeholder-line" style="width:80px;"></span></span>
                     <span class="placeholder-glow"><span class="placeholder-line" style="width:100px;"></span></span>
@@ -84,10 +82,12 @@
                     <span class="placeholder-glow"><span class="placeholder-line" style="width:70px;"></span></span>
                 </div>
             </div>
+        </div>
 
-            <!-- PRODUCTS GRID -->
+        <!-- PRODUCTS GRID – Inside normal container -->
+        <div class="container">
             <div class="products-grid" id="productsGrid">
-                <!-- Products will be injected here by JavaScript -->
+                <!-- Products injected here -->
             </div>
         </div>
     </main>
