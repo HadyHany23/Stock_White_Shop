@@ -18,7 +18,7 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
 let allData = { categories: [], products: [] };
 
 // Your Google Apps Script Web App URL (replace only if you make new deployment)
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbytTr_LG_0Hk4TF6PAoDfFYRrWcfKmFVHxN2L8ezZFQT26zfcz1GIjIrJAq6Q9R33vA/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwxheITVBrJZmwlS8zi3qlIULMbaRG4u5K484cDoyy_8w7TzNsYUjLmDP3t8gHnigig/exec";
 
 // ================================================
 // 1. LOAD DATA FROM GOOGLE SHEETS
