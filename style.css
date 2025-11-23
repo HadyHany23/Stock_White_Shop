@@ -31,22 +31,6 @@ body {
   transition: height 0.3s;
 }
 
-/* .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 25vh;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url('images/hero.jpg');
-  background-size: cover;
-  background-position: center;
-  border-bottom: 1px solid var(--gray);
-  z-index: 1000;
-  transition: height 0.3s;
-} */
-
 
 .header-inner {
   height: 100%;
@@ -94,8 +78,7 @@ body {
   font-size: 20px;
 }
 
-.nav-left a:hover,
-.social a:hover {
+.nav-left a:hover {
   color: var(--header_links);
 }
 
@@ -148,6 +131,22 @@ body {
   font-size: 28px;
 }
 
+a:hover i.fa-instagram {
+  color: #E1306C;
+}
+
+a:hover i.fa-tiktok {
+  color: #ff0000;
+}
+
+a:hover i.fa-facebook {
+  color: #1877F2;
+}
+
+a:hover i.fa-whatsapp {
+  color: #25D366;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
 
@@ -172,6 +171,51 @@ body {
 
   .logo a {
     font-size: 28px;
+  }
+}
+
+/* Logo with Image + Text */
+.logo {
+  text-align: center;
+}
+
+.logo-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-img {
+  width: 60px;
+  /* Adjust size as you like */
+  height: auto;
+  margin-bottom: 6px;
+  transition: transform 0.3s ease;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  color: #000;
+  text-transform: uppercase;
+}
+
+/* Hover effect */
+.logo-link:hover .logo-img {
+  transform: scale(1.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .logo-img {
+    width: 50px;
+  }
+
+  .logo-text {
+    font-size: 20px;
   }
 }
 
@@ -208,17 +252,19 @@ body {
 }
 
 .hero h1 {
-  font-size: clamp(48px, 8vw, 90px);
+  font-size: clamp(35px, 8vw, 70px);
   font-weight: 600;
   letter-spacing: -2px;
   margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
 .hero p {
-  font-size: clamp(18px, 3vw, 24px);
+  font-size: clamp(30px, 3vw, 40px);
   font-weight: 300;
   margin-bottom: 40px;
   opacity: 0.95;
+  text-transform: capitalize;
 }
 
 .btn {
@@ -256,7 +302,8 @@ body {
   font-size: 42px;
   font-weight: 600;
   margin-bottom: 80px;
-  letter-spacing: -1px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .categories-grid {
@@ -394,6 +441,8 @@ body {
 .footer-contact p {
   margin-bottom: 14px;
   font-size: 15px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .footer-contact i {
@@ -509,18 +558,25 @@ body {
   margin-bottom: 8px;
 }
 
+.product-card p {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
 .product-card .price {
   font-size: 16px;
   color: #000;
   font-weight: 600;
 }
 
-.old-price { 
-  text-decoration: line-through; 
-  color: #999; 
-  font-size: 18px; 
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 18px;
   margin-right: 8px;
 }
+
 .sale-badge {
   background: #e74c3c;
   color: white;
@@ -530,11 +586,13 @@ body {
   border-radius: 4px;
   margin-left: 8px;
 }
+
 .new-price {
   font-size: 32px;
   font-weight: 700;
   color: #000;
 }
+
 .sale-price-wrapper {
   display: flex;
   align-items: center;
@@ -638,6 +696,17 @@ body {
   font-weight: 600;
   margin-bottom: 12px;
   letter-spacing: -1px;
+}
+
+.product-info #productBrand {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.product-brand{
+  margin-bottom: 20px;
+  font-size: 15px;
 }
 
 .product-code {
