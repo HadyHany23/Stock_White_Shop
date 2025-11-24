@@ -7,6 +7,11 @@ document.querySelector('.burger')?.addEventListener('click', () => {
   document.querySelector('.mobile-menu').classList.toggle('active');
 });
 
+// Close with X button
+document.querySelector('.mobile-menu__close')?.addEventListener('click', () => {
+  document.querySelector('.mobile-menu').classList.remove('active');
+});
+
 // Close mobile menu when clicking a link
 document.querySelectorAll('.mobile-menu a').forEach(link => {
   link.addEventListener('click', () => {

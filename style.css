@@ -123,6 +123,25 @@ body {
   transform: translateY(0);
 }
 
+.mobile-menu__close {
+  position: absolute;
+  top: 20px;
+  right: 20px; 
+  background: transparent;
+  border: none;
+  font-size: 38px;
+  color: var(--black);
+  cursor: pointer;
+  padding: 12px;
+  z-index: 1000;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  transition: all 0.3s ease;
+}
+
 .mobile-social {
   margin-top: 60px;
   display: flex;
