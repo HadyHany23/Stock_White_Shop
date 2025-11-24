@@ -18,7 +18,7 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
 let allData = { categories: [], products: [] };
 
 // Your Google Apps Script Web App URL (replace only if you make new deployment)
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwxheITVBrJZmwlS8zi3qlIULMbaRG4u5K484cDoyy_8w7TzNsYUjLmDP3t8gHnigig/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwpbDDWgPVLTvYBxfdHCXU9hSi66tZx7hWQczcVXb-ss5Q38j8t1Sc2SN24LimkL79f/exec";
 
 // ================================================
 // 1. LOAD DATA FROM GOOGLE SHEETS
@@ -305,3 +305,44 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 2. بعد كده نحمل باقي البيانات عادي
   await loadFullData();
 });
+
+
+// ////////////////////////////////////
+
+// === SCROLLING PROMOTION BAR FROM GOOGLE SHEETS ===
+async function loadPromotionBar() {
+
+  try {
+    const response = await fetch(SHEET_URL + "?t=" + Date.now()); // cache bust
+    const data = await response.json();
+
+    const track = document.getElementById("promotionTrack");
+    track.innerHTML = ""; // clear loading
+
+    if (!data.promotions || data.promotions.length === 0) {
+      track.innerHTML = '<div class="promotion-item"><span>Ready To The Next Level</span></div>';
+      return;
+    }
+
+    // Build items (duplicate for seamless loop)
+    const itemsHTML = data.promotions.map(item => {
+      if (item.image) {
+        return `<div class="promotion-item"><img src="${item.image}" alt="Promotion"></div>`;
+      } else {
+        return `<div class="promotion-item"><span>${item.text}</span></div>`;
+      }
+    }).join("");
+
+    // Duplicate twice for perfect infinite scroll
+    track.innerHTML = itemsHTML + itemsHTML;
+
+  } catch (error) {
+    console.error("Failed to load promotion bar:", error);
+    document.getElementById("promotionTrack").innerHTML = 
+      '<div class="promotion-item"><span>Free Shipping on All Orders!</span></div>' +
+      '<div class="promotion-item"><span>FREE SHIPPING WORLDWIDE</span></div>';
+  }
+}
+
+// Load on page ready
+document.addEventListener("DOMContentLoaded", loadPromotionBar);

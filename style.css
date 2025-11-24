@@ -294,7 +294,7 @@ a:hover i.fa-whatsapp {
 
 /* CATEGORIES SECTION */
 .categories {
-  padding: 120px 0;
+  padding: 3% 0;
   background: #fff;
 }
 
@@ -1217,6 +1217,86 @@ a:hover i.fa-whatsapp {
     padding: 80px 20px;
   }
 }
+
+
+/*  */
+/* ─────── SCROLLING PROMOTION BAR ─────── */
+.scrolling-promotion {
+  background: #000;
+  color: white;
+  padding: 8vh 0;               /* ← Bigger height */
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  display: flex;
+  align-items: center;          /* ← Vertically center everything */
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+}
+
+.scrolling-promotion .track {
+  display: inline-flex;
+  align-items: center;
+  animation: scroll-left 70s linear infinite;
+  padding-left: 100%;
+  height: 100%;
+  gap: 100px;                   /* space between items */
+}
+
+.scrolling-promotion:hover .track {
+  animation-play-state: paused;
+}
+
+/* Each item (text or image) */
+.promotion-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+/* Text styling */
+.promotion-item span {
+  font-size: 22px;
+  letter-spacing: 0.8px;
+  text-align: center;
+}
+
+/* Images → Perfect Circle */
+.promotion-item img {
+  width: 100px;                  /* ← Adjust size here */
+  height: 100px;
+  border-radius: 50%;           /* ← Makes it a perfect circle */
+  object-fit: cover;            /* ensures image fills the circle nicely */
+  border: 3px solid white;      /* optional: white border for contrast */
+  flex-shrink: 0;
+}
+
+/* Animation */
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .scrolling-promotion {
+    padding: 60px 0;
+  }
+  .promotion-item span {
+    font-size: 16px;
+  }
+  .promotion-item img {
+    width: 60px;
+    height: 60px;
+    border-width: 2px;
+  }
+  .scrolling-promotion .track {
+    gap: 40px;
+  }
+}
+
 
 /* Force footer to bottom of page */
 html,
