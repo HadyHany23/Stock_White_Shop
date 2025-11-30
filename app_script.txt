@@ -1,0 +1,53 @@
+function doGet() {
+  return ContentService
+    .createTextOutput(JSON.stringify(getAllData()))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function getAllData() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const categoriesSheet = ss.getSheetByName("Categories");
+  const productsSheet = ss.getSheetByName("Products");
+  const promotionSheet = ss.getSheetByName("PromotionBar");
+
+  // Categories
+  const catData = categoriesSheet.getDataRange().getValues();
+  const categories = catData.slice(1).map(row => ({
+    name: row[0],
+    code: row[1],
+    cover_image: row[2] || ""
+  }));
+
+  // Products – FINAL VERSION WITH SALE_PRICE
+  const prodData = productsSheet.getDataRange().getValues();
+  const products = prodData.slice(1).map(row => ({
+    name: row[0],
+    code: row[1],
+    price: Number(String(row[2]).replace(/[^0-9]/g, '')) || 0,        // original price
+    sale_price: Number(String(row[3]).replace(/[^0-9]/g, '')) || 0,   // sale price (0 = no sale)
+    category_code: row[4],
+    sizes: String(row[5] || "").split(",").map(s => {
+      const [size, qty] = s.split(":").map(x => x.trim());
+      return { size: size || "", quantity: Number(qty || 0) };
+    }),
+    images: [row[6], row[7], row[8]].filter(Boolean),
+    brand: row[9],
+  }));
+
+  // NEW: Promotion Bar Data
+  let promotions = [];
+  if (promotionSheet) {
+    const promoData = promotionSheet.getDataRange().getValues();
+    promotions = promoData.slice(1).map(row => ({
+      text: row[0] || "",
+      image: row[1] || "",
+      type: row[1] ? "image" : "text"  // simple detection
+    }));
+  }
+
+  return {
+    categories,
+    products,
+    promotions   // ← now included!
+  };
+}
