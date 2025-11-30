@@ -1005,7 +1005,7 @@ a:hover i.fa-whatsapp {
 
 /* =============== PLACEHOLDER LOADING EFFECT =============== */
 .placeholder-glow {
-  background: trabsparent;
+  background: transparent;
   border-radius: 4px;
   position: relative;
   overflow: hidden;
