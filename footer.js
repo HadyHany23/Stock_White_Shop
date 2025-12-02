@@ -12,9 +12,9 @@ function loadFooter() {
 
             <!-- Social icons -->
             <div class="footer-col footer-social">
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.instagram.com/stock.white_?igsh=MW9xbXpmYXI3cThw" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="#" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.facebook.com/share/16gnycESg5/?mibextid=wwXIfr" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                 <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
 

@@ -28,9 +28,9 @@ function loadHeader() {
 
             <!-- Right Social Icons -->
             <div class="social">
-                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.instagram.com/stock.white_?igsh=MW9xbXpmYXI3cThw" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.facebook.com/share/16gnycESg5/?mibextid=wwXIfr" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
@@ -41,9 +41,9 @@ function loadHeader() {
             <a href="products.html">Products</a>
             <a href="about.html">About</a>
             <div class="mobile-social">
-                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.instagram.com/stock.white_?igsh=MW9xbXpmYXI3cThw" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.facebook.com/share/16gnycESg5/?mibextid=wwXIfr" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 <button class="mobile-menu__close" aria-label="Close menu">
                     <i class="fa-solid fa-xmark"></i>
