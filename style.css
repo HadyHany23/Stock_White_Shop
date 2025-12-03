@@ -428,7 +428,7 @@ a:hover i.fa-whatsapp {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  background: linear-gradient(to bottom, #8f8f8f77, #00000072);
+  /* background: linear-gradient(to bottom, #8f8f8f77, #00000072); */
   padding: 20px 0;
   text-align: center;
   /* border-bottom: 1px solid #333; */
@@ -449,7 +449,7 @@ a:hover i.fa-whatsapp {
 .filter-btn {
   background: transparent !important;
   /* Force no background */
-  color: white !important;
+  color: black !important;
   border: none !important;
   padding: 15px 10px;
   font-weight: 600;
@@ -464,13 +464,13 @@ a:hover i.fa-whatsapp {
 /* Hover & Active State – pill background */
 .filter-btn:hover,
 .filter-btn.active {
-  background: white !important;
-  color: black !important;
+  background: black !important;
+  color: white !important;
   border-radius: 50px;
 }
 
 /* Optional: subtle underline on hover (extra luxury touch) */
-.filter-btn::after {
+/* .filter-btn::after {
   content: '';
   position: absolute;
   width: 0;
@@ -479,7 +479,7 @@ a:hover i.fa-whatsapp {
   left: 50%;
   background: white;
   transition: all 0.35s ease;
-}
+} */
 
 .filter-btn:hover::after,
 .filter-btn.active::after {
@@ -500,7 +500,6 @@ a:hover i.fa-whatsapp {
     grid-template-columns: repeat(4, 1fr);
     /* 4 columns on desktop */
     gap: 24px;
-
   }
 }
 
@@ -535,7 +534,6 @@ a:hover i.fa-whatsapp {
 
   .filter-btn {
     padding: 10px 15px;
-
   }
 }
 
@@ -1156,12 +1154,6 @@ a:hover i.fa-whatsapp {
   .thumbnail-slider img {
     width: 80px;
     height: 80px;
-  }
-
-  /* Scrollbar width */
-  .thumbnail-slider::-webkit-scrollbar {
-    height: 0px;
-    /* horizontal scrollbar height */
   }
 
 }
