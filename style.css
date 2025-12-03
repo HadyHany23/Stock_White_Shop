@@ -243,7 +243,10 @@ a:hover i.fa-whatsapp {
 .hero {
   flex: 1;
   min-height: 100vh;
-  background: url('/images/hero1.jpg') center/cover no-repeat;
+  background-image: url('images/hero1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1104,7 +1107,10 @@ a:hover i.fa-whatsapp {
   padding: 120px 20px;
   height: 100vh;
   min-height: 600px;
-  background: url('/images/hero1.jpg') center/cover no-repeat;
+  background-image: url('images/hero1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

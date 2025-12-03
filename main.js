@@ -343,7 +343,7 @@ async function loadPromotionBar() {
 
   } catch (error) {
     console.error("Failed to load promotion bar:", error);
-    document.getElementById("promotionTrack").innerHTML = 
+    document.getElementById("promotionTrack").innerHTML =
       '<div class="promotion-item"><span>Free Shipping on All Orders!</span></div>' +
       '<div class="promotion-item"><span>FREE SHIPPING WORLDWIDE</span></div>';
   }
