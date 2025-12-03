@@ -18,6 +18,11 @@ body {
   --gray: #6d6d6d;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 /* HEADER */
 .header {
   position: fixed;
@@ -811,7 +816,7 @@ a:hover i.fa-whatsapp {
 
 /* PRODUCT DETAILS PAGE */
 .product-details-page {
-  padding: 140px 0 100px;
+  padding: 50px 0 50px;
   background: #fff;
 }
 

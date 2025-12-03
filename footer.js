@@ -20,8 +20,8 @@ function loadFooter() {
 
             <!-- Contact info -->
             <div class="footer-col footer-contact">
-                <p><i class="fas fa-phone-alt"></i> 01115599998</p>
-                <p><i class="fa-solid fa-location-dot"></i> stockwhite</p>
+                <p><i class="fas fa-phone-alt"></i><a href="tel:+201115599997">0111 559 9997</a></p>
+                <p><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/MGwTy6qZLG5f9Vpj9">STOCKWHITE</a></p>
             </div>
 
         </div>
